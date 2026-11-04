@@ -2,15 +2,26 @@
 
 Roguelike clássico em **HTML/CSS/JavaScript puro**: grid 2D, turnos, progressão com XP, itens, equipamentos e dificuldade por andar. Roda no navegador — sem build, sem servidor obrigatório, sem dependências de npm.
 
-## Como jogar
+## Jogar online
+
+GitHub Pages: [https://lucasefr.github.io/template-roguelike-html/](https://lucasefr.github.io/template-roguelike-html/)
+
+## Como jogar offline
 
 ### Opção 1 — abrir o arquivo
 
-1. Baixe ou clone este repositório
+1. Baixe o ZIP (`Code` → `Download ZIP`) ou clone o repositório
 2. Abra `index.html` no Chrome, Edge ou Firefox (duplo clique ou arraste para o navegador)
 3. Clique em **Jogar em tela cheia** (ou “Jogar na janela”)
 
-### Opção 2 — servidor local (recomendado se imagens/fonts falharem por `file://`)
+### Opção 2 — clonar
+
+```bash
+git clone https://github.com/lucasefr/template-roguelike-html.git
+cd template-roguelike-html
+```
+
+Depois abra `index.html`, ou suba um servidor local:
 
 ```bash
 # Python 3
@@ -20,7 +31,7 @@ python -m http.server 8080
 npx --yes serve .
 ```
 
-Depois abra: [http://localhost:8080](http://localhost:8080)
+Abra: [http://localhost:8080](http://localhost:8080)
 
 ## Controles
 
