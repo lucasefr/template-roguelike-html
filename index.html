@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Template Roguelike HTML</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="gameShell" class="game-shell">
+    <canvas id="game" aria-label="Mapa do roguelike" tabindex="0"></canvas>
+
+    <div class="hud" id="hud">
+      <header class="hud-top">
+        <div class="hud-panel hud-hero">
+          <img class="hud-portrait" src="assets/portrait-hero.jpg" alt="" width="56" height="56" />
+          <div class="hud-hero__meta">
+            <div class="hud-hero__title">
+              <strong>Herói</strong>
+              <span class="level-badge">Nv. <span id="level">1</span></span>
+            </div>
+            <div class="meter" title="Vida">
+              <div class="meter__label">
+                <span>❤</span>
+                <span><span id="hp">12</span>/<span id="maxHp">12</span></span>
+              </div>
+              <div class="meter__track">
+                <div id="hpBar" class="meter__fill meter__fill--hp" style="width: 100%"></div>
+              </div>
+            </div>
+            <div class="meter" title="XP">
+              <div class="meter__label">
+                <span>✦</span>
+                <span><span id="xp">0</span>/<span id="xpNext">12</span></span>
+              </div>
+              <div class="meter__track meter__track--thin">
+                <div id="xpBar" class="meter__fill meter__fill--xp" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hud-panel hud-stats">
+          <span>⚔ <strong id="atk">3</strong></span>
+          <span>🛡 <strong id="def">0</strong></span>
+          <span>🏛 <strong id="floor">1</strong></span>
+          <span>🔥 <strong id="difficulty">1</strong></span>
+          <span>⏱ <strong id="turn">0</strong></span>
+          <button type="button" id="btnFullscreen" class="btn-icon" title="Tela cheia (F)">⛶</button>
+        </div>
+      </header>
+
+      <aside class="hud-panel hud-side">
+        <p class="hud-side__threat" id="threatText">Explore a dungeon.</p>
+        <div class="hud-gear">
+          <div><span>Arma</span><strong id="weaponSlot">—</strong></div>
+          <div><span>Armadura</span><strong id="armorSlot">—</strong></div>
+        </div>
+        <div class="hud-inv">
+          <p>Poções <small>1–6</small></p>
+          <ul id="inventory" class="inventory-list"></ul>
+        </div>
+      </aside>
+
+      <footer class="hud-bottom">
+        <ul id="log" class="log" aria-live="polite"></ul>
+        <p class="hud-hints">
+          <kbd>WASD</kbd> mover · <kbd>1-6</kbd> poção · <kbd>.</kbd> esperar · <kbd>R</kbd> reiniciar · <kbd>F</kbd> tela cheia · <kbd>H</kbd> HUD
+        </p>
+      </footer>
+
+      <div class="mobile-pad" aria-label="Controles de toque">
+        <button type="button" class="pad-btn" data-dx="0" data-dy="-1">▲</button>
+        <div class="pad-mid">
+          <button type="button" class="pad-btn" data-dx="-1" data-dy="0">◀</button>
+          <button type="button" class="pad-btn pad-btn--wait" data-wait="1">●</button>
+          <button type="button" class="pad-btn" data-dx="1" data-dy="0">▶</button>
+        </div>
+        <button type="button" class="pad-btn" data-dx="0" data-dy="1">▼</button>
+      </div>
+    </div>
+
+    <div id="overlay" class="overlay is-hidden" role="status">
+      <div class="overlay__card">
+        <h2 id="overlayTitle">Você caiu</h2>
+        <p id="overlayText">Pressione R para tentar de novo.</p>
+        <button type="button" id="btnRestart" class="btn">Reiniciar aventura</button>
+      </div>
+    </div>
+
+    <div id="bootScreen" class="boot-screen">
+      <div class="boot-screen__card">
+        <p class="eyebrow">Dungeon Crawl</p>
+        <h1>Template Roguelike</h1>
+        <p class="tagline">Uma única janela em tela cheia. A UI fica sobre o mapa.</p>
+        <button type="button" id="btnStart" class="btn">Jogar em tela cheia</button>
+        <button type="button" id="btnStartWindowed" class="btn btn--ghost">Jogar na janela</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/sprites.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
