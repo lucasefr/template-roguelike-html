@@ -20,24 +20,17 @@ Como colocar na pasta local do Windows
 
 Como abrir
 ----------
-No PowerShell, a partir da pasta do jogo (a que contém index.html):
+Dê dois cliques em index.html, na pasta do jogo. A comparação abre
+sozinha. Não precisa de servidor, de terminal nem de outro endereço.
 
-  cd "C:\Users\Latitude 5420\Documents\Game Test"
+A dungeon normal continua disponível pelo link "Jogar a dungeon"
+ou abrindo index.html?jogar=1.
+
+Se preferir servir por HTTP, na pasta do jogo:
+
   py -m http.server 8080
 
-Se `py` não existir:
-
-  python -m http.server 8080
-
-Abra no Chrome, Edge ou Firefox:
-
-  http://127.0.0.1:8080/comparacao/index.html
-
-Voidless direto, mesma sala:
-
-  http://127.0.0.1:8080/comparacao/index.html?conjunto=voidless
-
-Não use file:// . Sirva por HTTP, como o restante do projeto.
+Depois abra http://127.0.0.1:8080/
 
 Controles
 ---------

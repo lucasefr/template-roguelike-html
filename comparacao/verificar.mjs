@@ -43,7 +43,7 @@ const EXPECTED_SHA256 = {
 };
 
 const UNTOUCHED_GAME_SHA256 = {
-  "index.html": "a6502b0c5315155e8ed91778c82a0f26743670dc86888a046a8764f1fc072c06",
+  "index.html": "69c6264e002eeb7c278e896c3800baf34957e0e7a5123aa2c844cbe02b110b91",
   "game.js": "ac95adc4d5b878effba0359c04010f23e8f03b4cf1ad9efa419735b94803cd32",
   "styles.css": "bc707528a1493bbfe67d453557a693e6d9f18f409bca24bb672b5ac9274de178",
   "assets/sprites.js": "9560421507e7a24c3d1e297a4e87969a809fdba2bffd178f676e95a24798ed44",
@@ -385,12 +385,63 @@ async function smokeInBrowser(chromePath, port) {
       fail("a URL ?conjunto=voidless não abriu o conjunto certo");
     }
 
+    await page.send("Page.navigate", { url: "file://" + ROOT + "/index.html" });
+    const openedFile = await waitForPath(page, "/comparacao/index.html");
+    const fileProbe = await readProbe(page);
+    if (!openedFile || fileProbe.conjunto !== "pixel" || fileProbe.heroi !== "5,3") {
+      fail("dois cliques em index.html não abriram a comparação: " + openedFile);
+    }
+
+    await page.send("Page.navigate", { url: "http://127.0.0.1:" + port + "/index.html" });
+    const openedHttp = await waitForPath(page, "/comparacao/index.html");
+    if (!openedHttp) {
+      fail("http://127.0.0.1:" + port + "/ não abriu a comparação");
+    }
+
+    await page.send("Page.navigate", { url: "http://127.0.0.1:" + port + "/index.html?jogar=1" });
+    const dungeon = await waitForExpression(
+      page,
+      "document.getElementById('btnStart') && location.search.indexOf('jogar=1') !== -1 && location.pathname.indexOf('/comparacao/') === -1 ? 'dungeon' : ''"
+    );
+    if (dungeon !== "dungeon") {
+      fail("?jogar=1 não manteve a dungeon normal");
+    }
+
     pageSocket.close();
     browser.close();
   } finally {
     chrome.kill("SIGKILL");
     await new Promise((resolve) => chrome.once("exit", resolve));
   }
+}
+
+/**
+ * Polls a page expression until it returns a non-empty string.
+ * @param {Cdp} page - Page session.
+ * @param {string} expression - JavaScript expression evaluated in the page.
+ * @returns {Promise<string>} Expression result.
+ */
+async function waitForExpression(page, expression) {
+  return waitFor(async () => {
+    const result = await page.send("Runtime.evaluate", {
+      expression: expression,
+      returnByValue: true,
+    });
+    return result.result && result.result.value ? result.result.value : null;
+  }, 8000);
+}
+
+/**
+ * Waits until the page path contains the given suffix.
+ * @param {Cdp} page - Page session.
+ * @param {string} pathPart - Path fragment to find.
+ * @returns {Promise<string>} Location pathname.
+ */
+function waitForPath(page, pathPart) {
+  return waitForExpression(
+    page,
+    "location.pathname.indexOf(" + JSON.stringify(pathPart) + ") !== -1 ? location.pathname : ''"
+  );
 }
 
 /**

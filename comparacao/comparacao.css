@@ -90,6 +90,17 @@ button[aria-pressed="true"] {
   border-color: transparent;
 }
 
+.link-jogo {
+  color: var(--texto-suave);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.link-jogo:hover {
+  color: var(--texto);
+}
+
 .controles,
 .estado {
   grid-column: 1 / -1;
