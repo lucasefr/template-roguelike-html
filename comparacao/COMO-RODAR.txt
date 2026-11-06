@@ -1,0 +1,65 @@
+Comparação Pixel × Voidless na sala do jogo
+==========================================
+
+Esta pasta é um acréscimo. Ela não substitui index.html, game.js,
+styles.css nem a pasta assets/ do jogo. O jogo padrão permanece com os
+sprites procedurais e a célula de 20px. Não há vencedor nem arte aprovada.
+
+Como colocar na pasta local do Windows
+---------------------------------------
+1. Feche o jogo se ele estiver aberto nesse diretório.
+2. Se já existir uma pasta comparacao, renomeie-a antes. Não misture
+   com outra tentativa.
+3. Extraia o zip DENTRO de:
+   C:\Users\Latitude 5420\Documents\Game Test
+   O resultado tem de ser:
+   C:\Users\Latitude 5420\Documents\Game Test\comparacao\index.html
+4. Confira que index.html, game.js, styles.css e assets\ da raiz NÃO
+   foram substituídos. O zip não contém esses arquivos. Se o extrator
+   perguntar se pode sobrescrever algo fora de comparacao\, cancele.
+
+Como abrir
+----------
+No PowerShell, a partir da pasta do jogo (a que contém index.html):
+
+  cd "C:\Users\Latitude 5420\Documents\Game Test"
+  py -m http.server 8080
+
+Se `py` não existir:
+
+  python -m http.server 8080
+
+Abra no Chrome, Edge ou Firefox:
+
+  http://127.0.0.1:8080/comparacao/index.html
+
+Voidless direto, mesma sala:
+
+  http://127.0.0.1:8080/comparacao/index.html?conjunto=voidless
+
+Não use file:// . Sirva por HTTP, como o restante do projeto.
+
+Controles
+---------
+P            conjunto Pixel
+V            conjunto Voidless
+Tab          alterna
+WASD / setas move só o herói; o inimigo fica na célula
+R            devolve herói e inimigo às células iniciais, sem trocar o conjunto
+G            grade ciano de referência (desligada no início; não é arte)
+C            mostra ou oculta o pacto (começa visível, camada separada)
+F            tela cheia
+
+O que a sala mostra
+-------------------
+Piso 16×16, parede 16×16, herói 16×24 com pés em (8, 24), inimigo 16×24
+com os mesmos pés, pacto 16×32 com pés em (8, 32) desenhado por cima do
+herói. Zoom só inteiro, nearest-neighbor. Alternar o conjunto não muda
+células, câmera nem luz.
+
+Checagem opcional (Node, sem npm), na pasta do jogo:
+
+  node comparacao/verificar.mjs
+
+Ela confere tamanho dos PNG e, se o Chrome estiver instalado, abre a
+sala, alterna os dois conjuntos e confirma que as posições não mudam.
