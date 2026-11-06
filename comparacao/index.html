@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comparação Pixel e Voidless — sala do jogo</title>
+  <link rel="stylesheet" href="comparacao.css" />
+</head>
+<body>
+  <header class="barra">
+    <div class="barra__titulo">
+      <p class="sobretitulo">Sala determinística · opt-in · reversível · sem vencedor</p>
+      <h1>Comparação no jogo: <span id="conjuntoAtivo">carregando…</span></h1>
+    </div>
+    <div class="barra__acoes" role="group" aria-label="Conjunto de arte">
+      <button type="button" id="btnPixel" data-conjunto="pixel">Pixel</button>
+      <button type="button" id="btnVoidless" data-conjunto="voidless">Voidless</button>
+      <a class="link-jogo" href="../index.html?jogar=1">Jogar a dungeon</a>
+    </div>
+    <p class="controles" id="controles">
+      <kbd>P</kbd> Pixel · <kbd>V</kbd> Voidless · <kbd>Tab</kbd> alternar ·
+      <kbd>WASD</kbd> ou setas movem o herói · <kbd>R</kbd> repõe as posições ·
+      <kbd>G</kbd> grade de referência · <kbd>C</kbd> pacto · <kbd>F</kbd> tela cheia
+    </p>
+    <p class="estado" id="estado">A sala ainda não foi desenhada.</p>
+    <p class="erro" id="erro" hidden></p>
+  </header>
+
+  <main class="palco">
+    <canvas id="sala" aria-label="Sala determinística com piso, parede, herói, inimigo e pacto" tabindex="0"></canvas>
+  </main>
+
+  <footer class="limites">
+    <h2>Limitações — nenhum conjunto é arte final</h2>
+    <div class="limites__colunas">
+      <section>
+        <h3>Os dois</h3>
+        <ul>
+          <li>Nada foi redesenhado nesta sala para melhorar um dos lados.</li>
+          <li>São conversões ao contrato proposto, não pixel art nativa desenhada na grade.</li>
+          <li>Pés do herói e do inimigo em (8, 24); pacto em (8, 32). Isso é alinhamento geométrico, não metadado do PNG.</li>
+          <li>Contraste forte contra o piso não foi validado em nenhum tratado.</li>
+          <li>Toda parede é o mesmo <code>wall_n</code>. Não há tile de topo separado.</li>
+          <li>Pixels transparentes da parede mostram o fundo da célula (#070504). O tile não foi completado nem esticado.</li>
+          <li>A luz copia <code>game.js</code>: centro da célula do herói, raio interno de 2 células, raio 8, véu 0,28 e visão por raios de Bresenham. A célula aqui é 16px com zoom inteiro. O jogo padrão continua em células de 20px.</li>
+          <li>A barra de vida do jogo padrão não é desenhada, para não cobrir o sprite.</li>
+          <li>Esta página não carrega <code>index.html</code>, <code>game.js</code> nem <code>assets/sprites.js</code> e não grava save.</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Pixel</h3>
+        <ul>
+          <li>Piso tratado é a cor única #4D5C68. A textura de laje se perdeu; as bordas foram reparadas à mão.</li>
+          <li>A parede perdeu topo no recorte do muro comprido.</li>
+          <li>Herói visível em 14×20 e inimigo em 16×15, com os pés na base do frame 16×24.</li>
+          <li>O pacto perdeu segmentos e o anel encosta nos pés. 10 pixels coincidem com o herói.</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Voidless</h3>
+        <ul>
+          <li>O piso conserva manchas. As emendas do mosaico ficaram mais duras depois da redução. Não houve reparo de borda.</li>
+          <li>A parede continua oblíqua, não um segmento norte modular. Não foi esticada.</li>
+          <li>Herói visível em 14×22 e inimigo em 16×12, alto no frame. Os pés encostam na base do 16×24.</li>
+          <li>O pacto é um anel grande e contínuo sobre o corpo, não um sigilo segmentado. 59 pixels coincidem com o herói. O crop nominal não foi aplicado porque amputaria desenho.</li>
+        </ul>
+      </section>
+    </div>
+  </footer>
+
+  <script src="comparacao.js"></script>
+</body>
+</html>

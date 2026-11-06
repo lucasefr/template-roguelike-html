@@ -1,0 +1,203 @@
+:root {
+  --fundo: #050302;
+  --painel: rgba(12, 8, 6, 0.92);
+  --linha: rgba(243, 230, 200, 0.2);
+  --texto: #f3e6c8;
+  --texto-suave: #d9c5a0;
+  --brasa: #ffb070;
+  --perigo: #ff8f7a;
+  --fonte: "Segoe UI", "Nunito", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--fonte);
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto minmax(240px, 1fr) auto;
+  min-height: 100%;
+  min-height: 100dvh;
+}
+
+.barra,
+.limites {
+  background: var(--painel);
+  border-color: var(--linha);
+  border-style: solid;
+}
+
+.barra {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.2rem 1rem;
+  padding: 0.65rem 0.9rem 0.55rem;
+  border-width: 0 0 1px;
+}
+
+.sobretitulo,
+.controles,
+.estado,
+.limites,
+.barra h1 {
+  margin: 0;
+}
+
+.sobretitulo {
+  color: var(--brasa);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.barra h1 {
+  font-size: 1.15rem;
+  line-height: 1.25;
+}
+
+.barra__acoes {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+button {
+  appearance: none;
+  border: 1px solid var(--linha);
+  background: #2a1a12;
+  color: var(--texto);
+  font: inherit;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+}
+
+button[aria-pressed="true"] {
+  background: #e07a3a;
+  color: #1c120c;
+  border-color: transparent;
+}
+
+.link-jogo {
+  color: var(--texto-suave);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.link-jogo:hover {
+  color: var(--texto);
+}
+
+.controles,
+.estado {
+  grid-column: 1 / -1;
+  color: var(--texto-suave);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.erro {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--perigo);
+  font-size: 0.82rem;
+}
+
+kbd {
+  display: inline-block;
+  min-width: 1.1rem;
+  padding: 0 0.28rem;
+  border: 1px solid var(--linha);
+  border-radius: 4px;
+  background: rgba(90, 58, 34, 0.55);
+  color: var(--texto);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.palco {
+  min-height: 0;
+  position: relative;
+  background: var(--fundo);
+}
+
+#sala {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: var(--fundo);
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  outline: none;
+}
+
+.limites {
+  max-height: 34vh;
+  overflow: auto;
+  padding: 0.55rem 0.9rem 0.7rem;
+  border-width: 1px 0 0;
+}
+
+.limites h2 {
+  margin: 0 0 0.35rem;
+  font-size: 0.82rem;
+}
+
+.limites__colunas {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 0.75rem 1rem;
+}
+
+.limites h3 {
+  margin: 0 0 0.2rem;
+  font-size: 0.75rem;
+  color: var(--brasa);
+}
+
+.limites ul {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.limites li {
+  margin: 0.12rem 0;
+  color: var(--texto-suave);
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+code {
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 0.92em;
+}
+
+@media (max-width: 860px) {
+  .barra {
+    grid-template-columns: 1fr;
+  }
+
+  .barra__acoes {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .limites__colunas {
+    grid-template-columns: 1fr;
+  }
+}
